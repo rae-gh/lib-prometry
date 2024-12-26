@@ -17,12 +17,13 @@ from prometry import pdbloader as pl
 from prometry import pdbgeometry as pg
 
 pdbs = ["1ejg","6eex","7uly","3nir","5d8v"]
-pdbs = ["6eex"]
 pobjs = []
+
+print(pg.ret_get())
 
 print("---")
 for pdb in pdbs:    
-    pla = pl.PdbLoader(pdb,DATADIR,cif=True)    
+    pla = pl.PdbLoader(pdb,DATADIR,cif=False)    
     po = pla.load_pdb()
     #print(po,len(po.lines()))
     #print("---")
@@ -30,17 +31,19 @@ for pdb in pdbs:
 
 gm = pg.GeometryMaker(pobjs)
 
-df = gm.calculateGeometry(['N:CA','C:O'])
-print(df)
+geoss = []
+geoss.append(['N:CA','C:O'])
+geoss.append(['N:CA:C:N+1','N:CA:C'])
+geoss.append(['N+1:CA','C:O+1'])
+geoss.append(['N+1:CA-1','C+1:O-1'])
+geoss.append(['CA-1:CA:CA+1'])
 
-df = gm.calculateGeometry(['N:CA:C:N+1','N:CA:C'])
-print(df)
-
-df = gm.calculateGeometry(['N+1:CA','C:O+1'])
-print(df)
-
-df = gm.calculateGeometry(['N+1:CA-1','C+1:O-1'])
-print(df)
+for geos in geoss:
+    df = gm.calculateGeometry(geos)
+    for col in df.columns:        
+        if "motif" in col:
+            print(df[col])
+    
 
 
 

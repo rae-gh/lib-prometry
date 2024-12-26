@@ -30,7 +30,7 @@ for i in range(len(pdbs)):
 ## Ensure code is imported in path
 import sys
 from pathlib import Path
-CODEDIR = str(Path(__file__).resolve().parent.parent )+ "/src/"
+CODEDIR = str(Path(__file__).resolve().parent.parent)
 sys.path.append(CODEDIR)
 DATADIR = "src/data/"
 

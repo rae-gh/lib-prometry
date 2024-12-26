@@ -5,6 +5,10 @@ GeoDataFrame (LeucipPy.GeoDataFrame))
 This class manipulates given biopython structures and creates dataframes oft he geometry
 """
 
+
+def ret_get():
+    return "leucippy"
+
 from operator import itemgetter
 import pandas as pd
 from . import pdbobject as po
@@ -30,6 +34,7 @@ class GeometryMaker:
         #:param hues:A list of hues hat will associate with the geoemtric values, can be bfactor, amino acid (aa), residue number (rid) etc see docs
         #:returns: the pandas dataframe with a r per geoemtric calculation per residue wh columns of geoemtric measures and hues
         
+        print("HERE")
         geo2 = ["val","blob"]
         vals = []
         hues=['pdb_code','resolution','aa','chain','rid']#,'rid2','rid3','rid4']
@@ -85,7 +90,8 @@ class GeometryMaker:
                         
                         if len(geo_cols) == len(geos):  
                             row_vals = {}                            
-                            row_infos = {}                                                        
+                            row_infos = {}                                                 
+                            row_motifs = {}
                             row_occs = {}
                             row_bfs = {}
                             row_rid2 = {}
@@ -102,6 +108,7 @@ class GeometryMaker:
                                 for x in range(cross_length):
                                     row_vals[x] = []
                                     row_infos[x] = []
+                                    row_motifs[x] = []
                                     row_occs[x] = []
                                     row_bfs[x] = []
                                     row_rid2[x] = []
@@ -125,6 +132,13 @@ class GeometryMaker:
                                             rid4 = geo_cols[geo_col_i][multi_match][6]   
                                             row_vals[row].append(val)
                                             row_infos[row].append(info)
+                                            motifs = info.replace(")","").split("(")
+                                            motif = ""
+                                            for m in motifs:
+                                                ms = m.split("|")
+                                                if len(ms) > 1:   
+                                                    motif += ms[1] + "|"
+                                            row_motifs[row].append(motif[:-1])
                                             row_occs[row].append(occ)
                                             row_bfs[row].append(bf)
                                             row_rid2[row].append(rid2)
@@ -141,6 +155,7 @@ class GeometryMaker:
                                 row_entry = []
                                 row_val = row_vals[row]
                                 row_info = row_infos[row]
+                                row_motif = row_motifs[row]
                                 row_occ = row_occs[row]
                                 row_bf = row_bfs[row]
                                 rrow_rid2 = row_rid2[row]
@@ -152,6 +167,8 @@ class GeometryMaker:
                                 for hue in hues:
                                     row_entry.append(all_hues[hue])                        
                                 for i in row_info:
+                                   row_entry.append(i)
+                                for i in row_motif:
                                    row_entry.append(i)
                                 for i in row_occ:
                                    row_entry.append(i)
@@ -177,6 +194,8 @@ class GeometryMaker:
         for geo in geos:            
             geos2.append("info_" + geo)
         for geo in geos:            
+            geos2.append("motif_" + geo)            
+        for geo in geos:            
             geos2.append("occ_" + geo)
         for geo in geos:            
             geos2.append("bf_" + geo)
@@ -188,6 +207,7 @@ class GeometryMaker:
             geos2.append("rid4_" + geo)
         
         df = pd.DataFrame(vals,columns=geos2)
+        print(geos2)
         return df
 
     def geoToAtoms(self, geo):
