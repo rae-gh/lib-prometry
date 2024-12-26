@@ -8,6 +8,8 @@ pip install prometry
                                                       
 The `prometry` library enables the discovery of correlations in protein geometry through a simple interface to calculate distances, angles and dihedrals in protein structures from cif or pdb files.  
 
+![alt text](readme.png)
+
 Additionally, `prometry` has a defined geoemtric-search language. It can find distances, angles or dihedrals by describing 2,3 or 4 atoms respectively using the standard atom names for proteins.  
 
 The 20 standard amino acids and their atoms can be [viewed here](https://www.imgt.org/IMGTeducation/Aide-memoire/_UK/aminoacids/formuleAA/).
