@@ -1,0 +1,14 @@
+cff-version: 0.1.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Alcraft"
+  given-names: "Rachel"
+  orcid: "https://orcid.org/0000-0003-2674-6321"
+- family-names: "Williams"
+  given-names: "Mark Antony"
+  orcid: "https://orcid.org/0000-0002-1645-2189"
+title: "PROMETRY: A library to calculate geometric parameters of protein structures and perform criteria search."
+version: 0.1.0
+doi: 10.5281/zenodo.10251232
+date-released: 02-Dec-2023
+url: "https://github.com/RachelAlcraft/prometry"

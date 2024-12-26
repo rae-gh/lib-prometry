@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+.env-prom/*
+src/data/*
+!src/data/force.txt
+src/results/*
+!src/results/force.txt
