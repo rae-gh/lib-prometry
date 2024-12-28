@@ -40,6 +40,7 @@ geoss.append(['CA-1:CA:CA+1'])
 
 for geos in geoss:
     df = gm.calculateGeometry(geos)
+    print(df.columns)
     for col in df.columns:        
         if "motif" in col:
             print(df[col])
